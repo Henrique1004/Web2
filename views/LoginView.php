@@ -6,7 +6,7 @@
     <title>Login</title>
 </head>
 <body>
-    <form id="login" action="index.php?acao=login" method="post">
+    <form id="login" action="index.php?acao=eventoList" method="post">
         Usuário   <input type="text" name="user"><br><br>
         Senha     <input type="password" name="senha"><br><br>
         Lembrar-me <input type="checkbox" name="lembrar"><br><br>

@@ -8,10 +8,10 @@ $controllerLogin = new LoginController();
 
 if (isset($_GET['acao'])) {
     switch ($_GET['acao']) {
-        case 'loginView':
+        case 'login':
             include 'views/LoginView.php';
             break;
-        case 'login':
+        case 'eventoList':
             $permissao = $controllerUsuario->validarUsr($_POST['user'], $_POST['senha']);
             if($permissao == 'adm') {
                 include 'views/EventoAdmListView.php';
