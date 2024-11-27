@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once 'controllers/UsuarioController.php';
 require_once 'controllers/EventoController.php';
 require_once 'controllers/LoginController.php';
@@ -8,31 +10,31 @@ $controllerLogin = new LoginController();
 
 if (isset($_GET['acao'])) {
     switch ($_GET['acao']) {
+        case 'cadastro':
+            include 'views/CadastroView.html';
+            break;
         case 'login':
-            include 'views/LoginView.php';
+            include 'views/LoginView.html';
             break;
         case 'eventoList':
-            $permissao = $controllerUsuario->validarUsr($_POST['user'], $_POST['senha']);
-            if($permissao == 'adm') {
-                include 'views/EventoAdmListView.php';
-                break;
-            } elseif($permissao == 'usr') {
-                include 'views/EventoUsrListView.php';
-                break;
+            $loginOk = $controllerLogin->login($_POST['user'], $_POST['senha']);
+            if($loginOk) {
+                $controllerEvento->listarEventos($_SESSION['tipoUsr']);
             } else {
-                include 'views/LoginView.php';
-                echo 'Verifique o e-mail e a senha';
-            }
+                include 'views/LoginView.html';
+            }    
             break;
-        case 'salvar':
-            $controller->salvar();
+        case 'criarEventoView':
+            include 'views/CriaEventoView.php';
+            break;
+        case 'editarEvento':
+            include 'views/EventoEditView.php';
             break;
         default:
             echo "Ação não encontrada";
             break;
     }
 } else {
-   // include 'views/index.php';
    echo "Sem ação selecionada";
 }
 ?>
